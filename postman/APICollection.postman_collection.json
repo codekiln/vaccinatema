@@ -57,7 +57,13 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "X-VAXMA-TOKEN",
+						"value": "<POPULATE_ME>",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n  \"name\": \"{{locationName}}\",\n  \"bookinglink\": \"https://www.maimmunizations.org/client/registration?clinic_id=1499\",\n  \"address\": \"Gillette Stadium, Foxborough MA, 02035\",\n  \"serves\": \"Adults, Seniors\",\n  \"vaccinnesoffered\": \"Moderna COVID-19 Vaccine\",\n  \"siteinstructions\": \"If you are signing up for a second dose, you must get the same vaccine brand as your first dose.\",\n  \"daysopen\": {\n    \"sunday\": {\n      \"open\": false\n    },\n    \"monday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"tuesday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"wednesday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"thursday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"friday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"saturday\": {\n      \"open\": false\n    }\n  },\n  \"county\": \"Middlesex\",\n  \"availabilitydetails\": \"***Per the Commonwealth of Massachusetts' vaccine distribution timeline, this clinic is for all Phase 1 priority groups, plus the first priority group in Phase 2: individuals ages 75 and older.*** Please arrive only 5 minutes prior to your appointment (not sooner or later) and bring proof of eligibility. Please remember to wear a mask and practice social distancing at all times. You should expect to be at the vaccination site for about 60-75 minutes, all told — from the time you check in until your post-shot observation period ends. There is a 15-minute variance depending on the duration required for your post-shot observation.\",\n  \"initialAvailability\": {\n    \"doses\": 100,\n    \"availabilitytime\": \"2021-02-20\"\n  }\n}",
@@ -85,7 +91,13 @@
 			"name": "Update Location",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "X-VAXMA-TOKEN",
+						"value": "<POPULATE_ME>",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"vaccinesoffered\": \"Pfizer-BioNTech COVID-19 Vaccine\"\n}",
@@ -114,7 +126,13 @@
 			"name": "Update Location Availability",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "X-VAXMA-TOKEN",
+						"value": "<POPULATE_ME>",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"availabilitydetails\": \"updated availability goes here!\"\n}",
@@ -297,7 +315,13 @@
 			"name": "Delete Location",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "X-VAXMA-TOKEN",
+						"value": "<POPULATE_ME>",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"availabilitydetails\": \"updated availability goes here!\"\n}",
@@ -326,7 +350,13 @@
 			"name": "Delete Location Availability",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "X-VAXMA-TOKEN",
+						"value": "<POPULATE_ME>",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"availabilitydetails\": \"updated availability goes here!\"\n}",

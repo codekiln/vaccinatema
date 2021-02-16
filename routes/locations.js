@@ -3,8 +3,16 @@ const locationsDb = require('../db/locations');
 const { getLatLngByAddress } = require('../geocode/geoLookup');
 
 const defaultRangeInMiles = 10;
-
+const HEADER_AUTH_TOKEN = "X-VAXMA-TOKEN";
 const { body, query, param, validationResult } = require('express-validator');
+
+function ensureAuthTokenProvided(req){
+    const headerTokenValue = req.header(HEADER_AUTH_TOKEN);
+    if(headerTokenValue === process.env.API_AUTH_TOKEN_VALUE){
+        return true;
+    }
+    return false;
+}
 
 
 // Fetch all locations. If lat/long provided will attempt a lookup of locations that are near the provided geolocation.
@@ -14,7 +22,7 @@ router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numb
     query('zipcode').optional().isNumeric().withMessage('Only numbers allowed for zipcode'),
     query('rangeMiles').optional().isNumeric().withMessage('Only numbers allowed for rangeMiles'),
     query('name').optional().isString()], async function(req, res) {
-    try {  
+    try {
         // Finds the validation errors in this request and wraps them in an object 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -67,6 +75,10 @@ router.post('/',
     body('siteinstructions').isLength({ min: 5 }),
     body('county').isLength({ min: 2 }),
     async function(req, res) {
+
+        if(!ensureAuthTokenProvided(req)){
+            return res.status(401).send("ACCESS DENIED")
+        }
         // Finds the validation errors in this request and wraps them in an object 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -102,6 +114,10 @@ router.put('/:locationId',
     body('siteinstructions').optional().isLength({ min: 5 }),
     body('county').optional().isLength({ min: 2 }),
     async function(req, res) {
+        if(!ensureAuthTokenProvided(req)){
+            return res.status(401).send("ACCESS DENIED")
+        }
+
         // Finds the validation errors in this request and wraps them in an object 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -137,6 +153,10 @@ router.put('/:locationId/availability',
     body('doses').isNumeric(),
     body('availabilitytime').isDate({format: 'MM-DD-YYYY'}),
     async function(req, res) {
+        if(!ensureAuthTokenProvided(req)){
+            return res.status(401).send("ACCESS DENIED")
+        }
+
         // Finds the validation errors in this request and wraps them in an object 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -159,6 +179,9 @@ router.delete('/:locationId/availability/:locationAvailabilityId',
     param('locationId').isNumeric(),
     param('locationAvailabilityId').isNumeric(),
     async function(req, res) {
+        if(!ensureAuthTokenProvided(req)){
+            return res.status(401).send("ACCESS DENIED")
+        }
         try {
             await locationsDb.deleteLocationAvailability(req.params.locationId, req.params.locationAvailabilityId);
             res.status(200).json('deleted');
@@ -174,6 +197,9 @@ router.delete('/:locationId/availability/:locationAvailabilityId',
 router.delete('/:locationId', 
     param('locationId').isNumeric(),
     async function(req, res) {
+        if(!ensureAuthTokenProvided(req)){
+            return res.status(401).send("ACCESS DENIED")
+        }
         try {
             await locationsDb.deleteLocation(req.params.locationId);
             res.status(200).send('deleted');
